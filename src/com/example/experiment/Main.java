@@ -1,13 +1,21 @@
 package com.example.experiment;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import com.example.layout.PredefinedLayoutFocusTraversalPolicy;
+
 public class Main {
+
+	private static final String PREDEFINED_LAYOUT = "predefined.layout";
 
 	public static void main(String... args) {
 		Main main = new Main();
@@ -18,23 +26,33 @@ public class Main {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JPanel top = new JPanel(new BorderLayout());
+		frame.getContentPane().add(top, BorderLayout.CENTER);
+		
 		JPanel north = new JPanel();
-		frame.getContentPane().add(north, BorderLayout.NORTH);
+		top.add(north, BorderLayout.NORTH);
 		north.add(new JButton("4"));
 		north.add(new JButton("5"));
 		north.add(new JButton("6"));
 		
 		JPanel center = new JPanel();
-		frame.getContentPane().add(center, BorderLayout.CENTER);
+		top.add(center, BorderLayout.CENTER);
 		center.add(new JButton("1"));
 		center.add(new JButton("2"));
 		center.add(new JButton("3"));
 		
 		JPanel south = new JPanel();
-		frame.getContentPane().add(south, BorderLayout.SOUTH);
+		top.add(south, BorderLayout.SOUTH);
 		south.add(new JButton("7"));
 		south.add(new JButton("8"));
 		south.add(new JButton("9"));
+		
+		frame.setTitle("Focus experiment");
+		
+		if (Boolean.getBoolean(PREDEFINED_LAYOUT)) {
+			List<Component> topLevelOrder = new ArrayList<Component>(Arrays.asList(center, north, south));
+			top.setFocusTraversalPolicy(new PredefinedLayoutFocusTraversalPolicy(topLevelOrder));
+		}
 		
 		SwingUtilities.invokeLater(new Runnable() {
 

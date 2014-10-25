@@ -14,7 +14,7 @@ public class PredefinedLayoutComparator implements Comparator<Component> {
 	private final Comparator<? super Component> layoutComparator;
 
 	public PredefinedLayoutComparator(List<Component> topLevelOrder, Comparator<? super Component> layoutComparator) {
-		this.topLevelOrder = Collections.unmodifiableList(new ArrayList<Component>(topLevelOrder));
+		this.topLevelOrder = Collections.unmodifiableList(new ArrayList<>(topLevelOrder));
 		this.layoutComparator = layoutComparator;
 	}
 
