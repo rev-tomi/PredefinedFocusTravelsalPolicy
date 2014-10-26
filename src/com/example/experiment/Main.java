@@ -2,6 +2,7 @@ package com.example.experiment;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FocusTraversalPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,17 +51,15 @@ public class Main {
 		frame.setTitle("Focus experiment");
 		
 		if (Boolean.getBoolean(PREDEFINED_LAYOUT)) {
+			top.setFocusCycleRoot(true);
 			List<Component> topLevelOrder = new ArrayList<Component>(Arrays.asList(center, north, south));
-			top.setFocusTraversalPolicy(new PredefinedLayoutFocusTraversalPolicy(topLevelOrder));
+			FocusTraversalPolicy policy = new PredefinedLayoutFocusTraversalPolicy(topLevelOrder);
+			top.setFocusTraversalPolicy(policy);
 		}
 		
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override public void run() {
-				frame.pack();
-				frame.setVisible(true);
-			}
-			
+		SwingUtilities.invokeLater(() -> {
+			frame.pack();
+			frame.setVisible(true);
 		});
 	}
 }
