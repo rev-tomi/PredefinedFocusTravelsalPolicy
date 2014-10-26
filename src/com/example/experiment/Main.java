@@ -16,14 +16,13 @@ import com.example.layout.PredefinedLayoutFocusTraversalPolicy;
 
 public class Main {
 
-	private static final String PREDEFINED_LAYOUT = "predefined.layout";
-
 	public static void main(String... args) {
 		Main main = new Main();
-		main.startApplication();
+		Features features = new Features();
+		main.startApplication(features);
 	}
 
-	private void startApplication() {
+	private void startApplication(Features features) {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -50,7 +49,7 @@ public class Main {
 		
 		frame.setTitle("Focus experiment");
 		
-		if (Boolean.getBoolean(PREDEFINED_LAYOUT)) {
+		if (features.isPredefinedLayout()) {
 			top.setFocusCycleRoot(true);
 			List<Component> topLevelOrder = new ArrayList<Component>(Arrays.asList(center, north, south));
 			FocusTraversalPolicy policy = new PredefinedLayoutFocusTraversalPolicy(topLevelOrder);
